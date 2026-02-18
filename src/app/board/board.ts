@@ -1,5 +1,4 @@
-// src/app/scrum-board/scrum-board.component.ts
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { TicketService } from '../ticket/service/ticket.service';
 import { Ticket, TicketState } from '../ticket/model/ticket.model';
 import { CommonModule } from '@angular/common';
@@ -11,6 +10,7 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   templateUrl: './board.html',
   styleUrl: './board.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrumBoardComponent {
   private ticketService = inject(TicketService);
