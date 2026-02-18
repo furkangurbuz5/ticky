@@ -1,0 +1,29 @@
+{
+  "tickets": [
+    {
+      "id": 1,
+      "title": "Design board",
+      "state": "In-progress"
+    },
+    {
+      "id": 2,
+      "title": "Design board #2",
+      "state": "ToDo"
+    },
+    {
+      "title": "Design Logic",
+      "state": "ToDo",
+      "id": 3
+    },
+    {
+      "title": "Fix vibe coded stuff",
+      "state": "ToDo",
+      "id": 4
+    },
+    {
+      "title": "Create back-end service instead of json-server",
+      "state": "ToDo",
+      "id": 5
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+<div class="p-4">
+  <h1 class="text-2xl font-bold mb-4">Board</h1>
+  <div class="flex gap-4">
+    @for (state of states; track state) {
+      <div class="w-1/3 bg-gray-100 p-2 rounded">
+        <h2 class="font-bold mb-2 capitalize">{{ state }}</h2>
+        <div
+          class="min-h-[200px] border-2 border-dashed border-gray-300 p-2 rounded"
+          (drop)="onDrop($event, state)"
+          (dragover)="onDragOver($event)"
+        >
+          @for (ticket of tickets(); track ticket.id) {
+            @if (ticket.state === state) {
+              <div
+                class="bg-white p-2 mb-2 rounded shadow cursor-grab"
+                draggable="true"
+                (dragstart)="onDragStart($event, ticket)"
+              >
+                {{ ticket.title }}
+              </div>
+            }
+          }
+        </div>
+      </div>
+    }
+  </div>
+  <div class="mt-4">
+    <input [(ngModel)]="newTicketTitle" placeholder="New ticket title" class="p-2 border rounded" />
+    <button (click)="addTicket()" class="ml-2 p-2 bg-blue-500 text-white rounded">
+      Add Ticket
+    </button>
+  </div>
+</div>
