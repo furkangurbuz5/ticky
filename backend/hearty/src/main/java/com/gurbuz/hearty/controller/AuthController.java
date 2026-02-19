@@ -36,7 +36,7 @@ public class AuthController {
         Authentication auth = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.username(), authRequest.password()));
 
-        final UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        final UserDetails userDetails = this.userDetailsService.loadUserByUsername(authRequest.username());
         final String jwt = jwtUtil.generateToken(userDetails);
 
         if (auth.isAuthenticated()) {

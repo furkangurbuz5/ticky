@@ -1,3 +1,3 @@
 package com.gurbuz.hearty.model;
 
-public record Ticket(int id, String title, TicketState ticket) {}
+public record Ticket(int id, String title, TicketState state) {}
