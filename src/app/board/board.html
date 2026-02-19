@@ -8,6 +8,8 @@
           class="min-h-[200px] border-2 border-dashed border-gray-300 p-2 rounded"
           (drop)="onDrop($event, state)"
           (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (dragend)="onDragEnd($event)"
         >
           @for (ticket of tickets(); track ticket.id) {
             @if (ticket.state === state) {

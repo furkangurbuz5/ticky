@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   templateUrl: './board.html',
   styleUrl: './board.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScrumBoardComponent {
   private ticketService = inject(TicketService);
@@ -22,13 +22,13 @@ export class ScrumBoardComponent {
     this.loadTickets();
   }
 
-  loadTickets() {
+  loadTickets(): void {
     this.ticketService.getTickets().subscribe((tickets) => {
       this.tickets.set(tickets);
     });
   }
 
-  addTicket() {
+  addTicket(): void {
     if (!this.newTicketTitle.trim()) return;
     this.ticketService.createTicket(this.newTicketTitle).subscribe(() => {
       this.loadTickets();
@@ -36,12 +36,15 @@ export class ScrumBoardComponent {
     });
   }
 
-  onDragStart(event: DragEvent, ticket: Ticket) {
+  onDragStart(event: DragEvent, ticket: Ticket): void {
     event.dataTransfer?.setData('text/plain', JSON.stringify(ticket));
+    event.dataTransfer?.setDragImage(event.target as HTMLElement, 0, 0);
+    (event.target as HTMLElement).classList.add('opacity-30');
   }
 
-  onDrop(event: DragEvent, state: TicketState) {
+  onDrop(event: DragEvent, state: TicketState): void {
     event.preventDefault();
+    (event.currentTarget as HTMLElement).classList.remove('bg-gray-200');
     const data = event.dataTransfer?.getData('text/plain');
     if (data) {
       const ticket = JSON.parse(data) as Ticket;
@@ -51,7 +54,16 @@ export class ScrumBoardComponent {
     }
   }
 
-  onDragOver(event: DragEvent) {
+  onDragEnd(event: DragEvent): void {
+    (event.target as HTMLElement).classList.remove('opacity-30');
+  }
+
+  onDragOver(event: DragEvent): void {
     event.preventDefault();
+    (event.currentTarget as HTMLElement).classList.add('bg-gray-200');
+  }
+
+  onDragLeave(event: DragEvent) {
+    (event.currentTarget as HTMLElement).classList.remove('bg-gray-200');
   }
 }
