@@ -34,9 +34,12 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/tickets")
                         .authenticated()
+                        .requestMatchers("/h2-console/**")
+                        .permitAll()
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
                 .addFilterBefore(this.jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
