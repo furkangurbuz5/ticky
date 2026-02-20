@@ -39,8 +39,10 @@ public class AuthController {
         final UserDetails userDetails = this.userDetailsService.loadUserByUsername(authRequest.username());
         final String jwt = jwtUtil.generateToken(userDetails);
 
+        System.out.println();
+
         if (auth.isAuthenticated()) {
-            return ResponseEntity.ok("Bearer " + jwt);
+            return ResponseEntity.ok(jwt);
         } else {
             return ResponseEntity.status(401).body("Invalid credentials");
         }

@@ -18,7 +18,7 @@ import com.gurbuz.hearty.model.Ticket;
 import com.gurbuz.hearty.model.TicketState;
 import com.gurbuz.hearty.service.TicketService;
 
-@RestController()
+@RestController
 @RequestMapping("/api/tickets")
 public class TicketController {
 

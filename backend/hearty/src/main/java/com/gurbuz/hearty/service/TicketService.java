@@ -12,7 +12,6 @@ import com.gurbuz.hearty.repository.TicketRepository;
 @Service
 public class TicketService {
 
-    // @Autowired
     private TicketRepository ticketRepository;
 
     public List<Ticket> getAllTickets() {
