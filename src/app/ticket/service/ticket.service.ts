@@ -6,7 +6,7 @@ import { Ticket } from '../model/ticket.model';
 @Injectable({ providedIn: 'root' })
 export class TicketService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/tickets';
+  private apiUrl = 'http://localhost:8080/api/tickets';
 
   getTickets() {
     return this.http.get<Ticket[]>(this.apiUrl);

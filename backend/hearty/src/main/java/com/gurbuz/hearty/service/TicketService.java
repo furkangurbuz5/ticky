@@ -2,7 +2,6 @@ package com.gurbuz.hearty.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gurbuz.hearty.model.Ticket;
@@ -11,8 +10,12 @@ import com.gurbuz.hearty.repository.TicketRepository;
 
 @Service
 public class TicketService {
-
+    
     private TicketRepository ticketRepository;
+
+    TicketService(TicketRepository ticketRepository){
+        this.ticketRepository = ticketRepository;
+    }
 
     public List<Ticket> getAllTickets() {
         return ticketRepository.findAll();
