@@ -24,6 +24,9 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 
 import com.gurbuz.hearty.util.JwtRequestFilter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -68,7 +71,13 @@ public class SecurityConfig {
       .roles("USER")
       .build();
 
-    return new InMemoryUserDetailsManager(user);
+    UserDetails admin = User.builder()
+      .username("admin@example.com")
+      .password(this.encoder().encode("password"))
+      .roles("ADMIN")
+      .build();
+
+    return new InMemoryUserDetailsManager(user, admin);
   }
 
   @Bean
