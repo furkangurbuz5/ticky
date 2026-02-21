@@ -1,5 +1,8 @@
 package com.gurbuz.hearty.controller;
 
+import com.gurbuz.hearty.service.TokenService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,35 +20,45 @@ import com.gurbuz.hearty.util.JwtUtil;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final AuthenticationManager authManager;
-    private final JwtUtil jwtUtil;
-    private final UserDetailsService userDetailsService;
+  private final AuthenticationManager authManager;
+//  private final JwtUtil jwtUtil;
+  private final TokenService tokenService;
+  private final UserDetailsService userDetailsService;
 
-    public AuthController(
-            AuthenticationManager authManager,
-            JwtUtil jwtUtil,
-            UserDetailsService userDetailsService) {
-        this.authManager = authManager;
-        this.jwtUtil = jwtUtil;
-        this.userDetailsService = userDetailsService;
-    }
+  private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AuthRequest authRequest) {
+  public AuthController(
+    AuthenticationManager authManager,
+    JwtUtil jwtUtil,
+    TokenService tokenService,
+    UserDetailsService userDetailsService) {
+    this.authManager = authManager;
+//    this.jwtUtil = jwtUtil;
+    this.tokenService = tokenService;
+    this.userDetailsService = userDetailsService;
+  }
 
-        Authentication auth = authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.username(), authRequest.password()));
+//  @PostMapping("/login")
+//  public ResponseEntity<String> login(@RequestBody AuthRequest authRequest) {
+//
+//    Authentication auth = authManager.authenticate(
+//      new UsernamePasswordAuthenticationToken(authRequest.username(), authRequest.password()));
+//
+//    final UserDetails userDetails = this.userDetailsService.loadUserByUsername(authRequest.username());
+//    final String jwt = jwtUtil.generateToken(userDetails);
+//
+//    System.out.println();
+//
+//    if (auth.isAuthenticated()) {
+//      return ResponseEntity.ok(jwt);
+//    } else {
+//      return ResponseEntity.status(401).body("Invalid credentials");
+//    }
+//  }
 
-        final UserDetails userDetails = this.userDetailsService.loadUserByUsername(authRequest.username());
-        final String jwt = jwtUtil.generateToken(userDetails);
-
-        System.out.println();
-
-        if (auth.isAuthenticated()) {
-            return ResponseEntity.ok(jwt);
-        } else {
-            return ResponseEntity.status(401).body("Invalid credentials");
-        }
-
-    }
+  @PostMapping("/token")
+  public String token(Authentication auth){
+    log.debug("Authentication name: {}", auth.getName());
+    return tokenService.generateToken(auth);
+  }
 }
