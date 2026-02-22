@@ -58,8 +58,8 @@ public class SecurityConfig {
       .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .httpBasic(withDefaults())
-      .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
-//      .addFilterBefore(this.jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+      .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+      .addFilterBefore(this.jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
     return httpSecurity.build();
   }

@@ -42,7 +42,7 @@ public class TicketController {
 
     @GetMapping("/test")
     ResponseEntity<Ticket> getTickets() {
-        Ticket ticket = new Ticket("New Ticket!", TicketState.ToDo);
+        Ticket ticket = new Ticket(1, "New Ticket!", TicketState.ToDo);
 
         return new ResponseEntity<Ticket>(ticket, HttpStatusCode.valueOf(200));
     }

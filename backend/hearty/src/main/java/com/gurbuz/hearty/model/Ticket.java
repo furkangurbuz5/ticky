@@ -5,46 +5,53 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "ticket")
 public class Ticket {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    @Column(nullable = false)
-    private String title;
+  @Column(nullable = false)
+  private String title;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TicketState state;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private TicketState state;
 
-    public Ticket() {
-    }
+  public Ticket() {
+  }
 
-    public Ticket(String title, TicketState state) {
-        this.title = title;
-        this.state = state;
-    }
+  public Ticket(String title, TicketState state) {
+    this.title = title;
+    this.state = state;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  //testing purposes
+  public Ticket(Integer id, String title, TicketState state) {
+    this.id = id;
+    this.title = title;
+    this.state = state;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public TicketState getState() {
-        return state;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setState(TicketState state) {
-        this.state = state;
-    }
+  public TicketState getState() {
+    return state;
+  }
+
+  public void setState(TicketState state) {
+    this.state = state;
+  }
 }
