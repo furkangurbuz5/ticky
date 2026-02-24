@@ -3,13 +3,12 @@ import {HttpClient} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Observable, take, takeUntil, tap} from 'rxjs';
 
-
 @Injectable({providedIn: 'root'})
 export class AuthService implements OnDestroy {
 
   private apiAuthUrl = 'http://localhost:8080/api/auth';
   private token: string | null = null;
-  private loggedIn = signal<boolean>(false);
+  loggedIn = signal<boolean>(false);
 
   private http = inject(HttpClient);
   private jwtHelper = inject(JwtHelperService);
