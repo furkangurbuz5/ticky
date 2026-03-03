@@ -24,7 +24,6 @@ public class AuthController {
     TokenService tokenService,
     UserDetailsService userDetailsService) {
     this.authManager = authManager;
-//    this.jwtUtil = jwtUtil;
     this.tokenService = tokenService;
     this.userDetailsService = userDetailsService;
   }
