@@ -38,7 +38,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     HttpServletResponse response,
     FilterChain filterChain) throws ServletException, IOException {
 
-    log.debug("request: {}, response: {}", request, response);
+    log.debug("filtering request: {}, response: {}", request, response);
 
 
 //    final String authHeader = request.getHeader("Authorization");
