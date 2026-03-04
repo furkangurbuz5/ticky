@@ -16,8 +16,8 @@ export class TicketService {
     return this.http.put<Ticket>(`${this.apiUrl}/${ticket.id}`, ticket);
   }
 
-  createTicket(title: string) {
-    return this.http.post<Ticket>(this.apiUrl, { title, state: 'ToDo' });
+  createTicket(title: string, points: string) {
+    return this.http.post<Ticket>(this.apiUrl, { title, state: 'ToDo', points });
   }
 
   deleteTicket(id: number) {

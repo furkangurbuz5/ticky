@@ -17,6 +17,7 @@ export class ScrumBoardComponent {
   tickets = signal<Ticket[]>([]);
   states: TicketState[] = ['ToDo', 'In-progress', 'Done'];
   newTicketTitle = '';
+  newTicketPoints = '';
 
   constructor() {
     this.loadTickets();
@@ -30,7 +31,7 @@ export class ScrumBoardComponent {
 
   addTicket(): void {
     if (!this.newTicketTitle.trim()) return;
-    this.ticketService.createTicket(this.newTicketTitle).subscribe(() => {
+    this.ticketService.createTicket(this.newTicketTitle, this.newTicketPoints).subscribe(() => {
       this.loadTickets();
       this.newTicketTitle = '';
     });
