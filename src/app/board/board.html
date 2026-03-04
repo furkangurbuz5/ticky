@@ -19,6 +19,7 @@
                 (dragstart)="onDragStart($event, ticket)"
               >
                 {{ ticket.title }}
+                Story points: {{ ticket.points }}
               </div>
             }
           }
@@ -28,6 +29,7 @@
   </div>
   <div class="mt-4">
     <input [(ngModel)]="newTicketTitle" placeholder="New ticket title" class="p-2 border rounded" />
+    <input [(ngModel)]="newTicketPoints" placeholder="New ticket story points" class="p-2 border rounded" />
     <button (click)="addTicket()" class="ml-2 p-2 bg-blue-500 text-white rounded">
       Add Ticket
     </button>
