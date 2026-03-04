@@ -4,4 +4,5 @@ export interface Ticket {
   id: number;
   title: string;
   state: TicketState;
+  points: string;
 }

@@ -16,6 +16,9 @@ public class Ticket {
   @Column(nullable = false)
   private TicketState state;
 
+  @Column(nullable = false)
+  private String points;
+
   public Ticket() {
   }
 
@@ -25,10 +28,11 @@ public class Ticket {
   }
 
   //testing purposes
-  public Ticket(Integer id, String title, TicketState state) {
+  public Ticket(Integer id, String title, TicketState state, String points) {
     this.id = id;
     this.title = title;
     this.state = state;
+    this.points = points;
   }
 
   public Integer getId() {
@@ -53,5 +57,13 @@ public class Ticket {
 
   public void setState(TicketState state) {
     this.state = state;
+  }
+
+  public String getPoints(){
+    return this.points;
+  }
+
+  public void setPoints(String points){
+    this.points = points;
   }
 }
