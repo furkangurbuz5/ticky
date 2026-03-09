@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { afterNextRender, Component, inject, viewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
+import { debounceTime, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,27 @@ export class Login {
   password: string | null = null;
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
+
+  private form = viewChild.required<NgForm>('loginForm');
+
+  private destroy$ = new Subject<void>();
+
+  constructor() {
+    afterNextRender(() => {
+      this.form()
+        .valueChanges?.pipe(debounceTime(300), takeUntil(this.destroy$))
+        .subscribe({
+          next: (formValue) => {
+            console.log(formValue);
+            window.localStorage.setItem('login-form-object', formValue);
+          },
+        });
+    });
+  }
+
+  onDestroy() {
+    this.destroy$.next();
+  }
 
   onLogin(formData: NgForm): void {
     const username = formData.controls['username'];
