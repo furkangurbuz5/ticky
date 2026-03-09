@@ -1,11 +1,10 @@
-import {EventEmitter, inject, Injectable, OnDestroy, signal} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {JwtHelperService} from '@auth0/angular-jwt';
-import {Observable, take, takeUntil, tap} from 'rxjs';
+import { EventEmitter, inject, Injectable, OnDestroy, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { catchError, Observable, take, takeUntil, tap } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class AuthService implements OnDestroy {
-
   private apiAuthUrl = 'http://localhost:8080/api/auth';
   private token: string | null = null;
   loggedIn = signal<boolean>(false);
@@ -25,16 +24,15 @@ export class AuthService implements OnDestroy {
   }
 
   //using localstorage, not very safe.
-  login(credentials: { username: string, password: string }): Observable<any> {
+  login(credentials: { username: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiAuthUrl}/token`, credentials).pipe(
       take(1),
-      tap(
-        (token: any) => {
-          // this.token = token;
-          localStorage.setItem('access_token', token);
-          this.loggedIn.set(true);
-        }),
-    )
+      tap((token: any) => {
+        // this.token = token;
+        localStorage.setItem('access_token', token);
+        this.loggedIn.set(true);
+      })
+    );
   }
 
   logout(): void {
