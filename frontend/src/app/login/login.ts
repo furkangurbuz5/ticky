@@ -29,6 +29,7 @@ export class Login {
         .subscribe({
           next: () => {
             this.router.navigate(['board']).then(() => {});
+            formData.form.reset();
           },
           error: (err) => {
             console.error(err.message);

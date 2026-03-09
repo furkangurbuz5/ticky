@@ -45,7 +45,14 @@
     </button>
   </div>
 
-  @if (username.dirty && username.touched && password.touched && loginForm.invalid) {
+  @if (
+    username.dirty &&
+    username.touched &&
+    username.invalid &&
+    password.dirty &&
+    password.touched &&
+    password.invalid
+  ) {
     <p class="text-red-400">Invalid username or password entered.</p>
   }
 </form>
