@@ -2,7 +2,7 @@ import { afterNextRender, Component, inject, viewChild } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
-import { debounceTime, Subject, takeUntil } from 'rxjs';
+import { debounceTime, Subject, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -48,6 +48,7 @@ export class Login {
           username: username.value,
           password: password.value,
         })
+        .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
             this.router.navigate(['board']).then(() => {});
