@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {AuthService} from '../auth/auth.service';
 import {Router} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -17,11 +17,16 @@ export class Login {
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
 
-  onLogin(): void {
-    if (!!this.username && !!this.password) {
+  onLogin(formData: NgForm): void {
+
+    const username = formData.controls['username'];
+    const password = formData.controls['password'];
+
+    if (username.valid && password.valid) {
+      console.info("Username or password valid!");
       this.authService.login({
-          username: this.username,
-          password: this.password
+          username: username.value,
+          password: password.value
         }
       ).subscribe({
         next: () => {
@@ -31,6 +36,8 @@ export class Login {
           console.error(err)
         }
       })
+    }else{
+      console.error("Username or password invalid or missing.");
     }
   }
 }
