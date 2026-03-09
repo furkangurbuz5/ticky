@@ -31,7 +31,7 @@ export class AuthService implements OnDestroy {
         // this.token = token;
         localStorage.setItem('access_token', token);
         this.loggedIn.set(true);
-      })
+      }),
     );
   }
 

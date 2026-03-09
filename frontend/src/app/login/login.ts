@@ -1,13 +1,11 @@
-import {Component, inject} from '@angular/core';
-import {AuthService} from '../auth/auth.service';
-import {Router} from '@angular/router';
-import {FormsModule, NgForm} from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  imports: [
-    FormsModule
-  ],
+  imports: [FormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -18,26 +16,26 @@ export class Login {
   private router: Router = inject(Router);
 
   onLogin(formData: NgForm): void {
-
     const username = formData.controls['username'];
     const password = formData.controls['password'];
 
     if (username.valid && password.valid) {
-      console.info("Username or password valid!");
-      this.authService.login({
+      console.info('Username or password valid!');
+      this.authService
+        .login({
           username: username.value,
-          password: password.value
-        }
-      ).subscribe({
-        next: () => {
-          this.router.navigate(['board']).then(() => {});
-        },
-        error: err => {
-          console.error(err.message)
-        }
-      })
-    }else{
-      console.error("Username or password invalid or missing.");
+          password: password.value,
+        })
+        .subscribe({
+          next: () => {
+            this.router.navigate(['board']).then(() => {});
+          },
+          error: (err) => {
+            console.error(err.message);
+          },
+        });
+    } else {
+      console.error('Username or password invalid or missing.');
     }
   }
 }
