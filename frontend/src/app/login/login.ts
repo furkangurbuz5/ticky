@@ -33,7 +33,7 @@ export class Login {
           this.router.navigate(['board']).then(() => {});
         },
         error: err => {
-          console.error(err)
+          console.error(err.message)
         }
       })
     }else{
