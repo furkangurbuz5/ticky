@@ -22,6 +22,19 @@ export class Login {
 
   constructor() {
     afterNextRender(() => {
+      const savedForm = window.localStorage.getItem('login-form-object');
+
+      if (savedForm) {
+        const loadedForm = JSON.parse(savedForm);
+        const loadedUsername = loadedForm.username;
+        const loadedPassword = loadedForm.password;
+        //for the template driven approach, we need to wait for one update cycle so
+        //that the form controls are initialized.
+        setTimeout(() => {
+          this.form().controls['username'].setValue(loadedUsername);
+        }, 10);
+      }
+
       this.form()
         .valueChanges?.pipe(debounceTime(300), takeUntil(this.destroy$))
         .subscribe({
