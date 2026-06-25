@@ -2,6 +2,7 @@ package com.gurbuz.hearty.service;
 
 import java.util.List;
 
+import com.gurbuz.hearty.exception.TicketNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.gurbuz.hearty.model.Ticket;
@@ -11,7 +12,7 @@ import com.gurbuz.hearty.repository.TicketRepository;
 @Service
 public class TicketService {
     
-    private TicketRepository ticketRepository;
+    private final TicketRepository ticketRepository;
 
     TicketService(TicketRepository ticketRepository){
         this.ticketRepository = ticketRepository;
@@ -26,7 +27,7 @@ public class TicketService {
     }
 
     public Ticket updateTicket(int id, TicketState state) {
-        Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new RuntimeException("Ticket not found"));
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new TicketNotFoundException("Ticket not found"));
         ticket.setState(state);
         return ticketRepository.save(ticket);
     }
